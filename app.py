@@ -63,7 +63,7 @@ with col2:
     mu = st.number_input("μ", value=1.2, min_value=0.01)
 
 with col3:
-    N = st.number_input("N", value=50000, min_value=1000)
+    N = st.number_input("N", value=500000, min_value=1000)
 
 with col4:
     st.markdown("<div style='height:30px'></div>", unsafe_allow_html=True)
