@@ -26,6 +26,8 @@ div[data-testid="column"]:has(button) {
 </style>
 """, unsafe_allow_html=True)
 
+st.info("Change parameters and click 'Run Simulation' to update results.")
+
 # =========================
 # TOP CONTROL BAR
 # =========================
