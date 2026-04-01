@@ -5,7 +5,7 @@ import math
 import random
 
 st.set_page_config(layout="wide")
-st.title("IPA Analysis (M/M/1) — Textbook Formulation")
+st.title("IPA Analysis (M/M/1)")
 st.caption("Author: Ana Theodora Balaci")
 
 st.markdown("""
@@ -183,6 +183,15 @@ if run or "ran_once" not in st.session_state:
         # VERY SHORT INTERPRETATION
         # =========================
         st.caption(
-            "IPA implemented using generation + propagation terms with reset at idle periods (textbook form). "
+            "IPA implemented using generation + propagation terms with reset at idle periods. "
             "All estimators converge to theoretical values."
+        )
+
+        st.markdown(
+            "<div style='text-align:center; font-size:12px; color:gray;'>"
+            "Based on Infinitesimal Perturbation Analysis formulation in "
+            "C. G. Cassandras & S. Lafortune, "
+            "<i>Introduction to Discrete Event Systems</i>, Eq. (11.63)."
+            "</div>",
+            unsafe_allow_html=True
         )
