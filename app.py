@@ -11,14 +11,34 @@ st.caption("Author: Ana Theodora Balaci")
 # =========================
 # Sidebar Inputs
 # =========================
-st.sidebar.header("Parameters")
+# st.sidebar.header("Parameters")
 
-lam = st.sidebar.number_input("Lambda (λ)", value=1.0, min_value=0.01)
-mu = st.sidebar.number_input("Mu (μ)", value=1.2, min_value=0.01)
-N = st.sidebar.number_input("Customers (N)", value=50000, min_value=1000)
-seed = st.sidebar.number_input("Seed", value=1)
+# lam = st.sidebar.number_input("Lambda (λ)", value=1.0, min_value=0.01)
+# mu = st.sidebar.number_input("Mu (μ)", value=1.2, min_value=0.01)
+# N = st.sidebar.number_input("Customers (N)", value=50000, min_value=1000)
+# seed = st.sidebar.number_input("Seed", value=1)
 
-run = st.sidebar.button("Run Simulation")
+# run = st.sidebar.button("Run Simulation")
+
+# =========================
+# TOP CONTROL BAR
+# =========================
+col1, col2, col3, col4, col5 = st.columns(5)
+
+with col1:
+    lam = st.number_input("λ", value=1.0, min_value=0.01)
+
+with col2:
+    mu = st.number_input("μ", value=1.2, min_value=0.01)
+
+with col3:
+    N = st.number_input("N", value=50000, min_value=1000)
+
+with col4:
+    seed = st.number_input("Seed", value=1)
+
+with col5:
+    run = st.button("Run")
 
 # =========================
 # Helpers
