@@ -43,7 +43,12 @@ with col3:
     N = st.number_input("N", value=50000, min_value=1000)
 
 with col4:
-    seed = st.number_input("Seed", value=1)
+    use_fixed_seed = st.checkbox("Fixed seed", value=True)
+
+    if use_fixed_seed:
+        seed = st.number_input("Seed", value=1)
+    else:
+        seed = random.randint(0, 1_000_000)
 
 with col5:
     run = st.button("Run Simulation", use_container_width=True)
