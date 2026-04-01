@@ -77,7 +77,7 @@ with col5:
         st.markdown("<div style='height:38px'></div>", unsafe_allow_html=True)
 
 with col6:
-    st.markdown("<div style='height:25px'></div>", unsafe_allow_html=True)
+    st.markdown("<div style='height:24px'></div>", unsafe_allow_html=True)
     run = st.button("Run Simulation", use_container_width=True)
 
 # =========================
