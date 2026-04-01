@@ -142,7 +142,7 @@ if run or "ran_once" not in st.session_state:
         # METRICS (TOP ROW)
         # =========================
         # m1, m2, m3 = st.columns(3)
-        _, m1, m2, m3 = st.columns([0.5, 1, 1, 0.7])
+        _, m1, m2, m3 = st.columns([0.7, 1, 1, 0.7])
 
         m1.metric("W", f"{W[-1]:.4f}", f"{W_th:.4f}")
         m2.metric("dW/dλ", f"{dW_lam[-1]:.4f}", f"{dW_lam_th:.4f}")
