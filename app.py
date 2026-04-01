@@ -17,8 +17,11 @@ div.stButton > button {
     border-radius: 8px;
     height: 3em;
 }
-div.stButton > button:hover {
-    background-color: #27ae60;
+
+/* align button with inputs */
+div[data-testid="column"]:has(button) {
+    display: flex;
+    align-items: flex-end;
 }
 </style>
 """, unsafe_allow_html=True)
@@ -138,7 +141,8 @@ if run or "ran_once" not in st.session_state:
         # =========================
         # METRICS (TOP ROW)
         # =========================
-        m1, m2, m3 = st.columns(3)
+        # m1, m2, m3 = st.columns(3)
+        _, m1, m2, m3, _ = st.columns([0.5, 1, 1, 1, 0.5])
 
         m1.metric("W", f"{W[-1]:.4f}", f"{W_th:.4f}")
         m2.metric("dW/dλ", f"{dW_lam[-1]:.4f}", f"{dW_lam_th:.4f}")
