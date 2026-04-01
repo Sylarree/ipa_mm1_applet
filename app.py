@@ -26,7 +26,7 @@ div[data-testid="column"]:has(button) {
 </style>
 """, unsafe_allow_html=True)
 
-st.info("Change parameters and click 'Run Simulation' to update results.")
+st.info("Change parameters and click 'Run Simulation' to update results. To see a different random run each time, turn off 'Fixed seed'.")
 
 # =========================
 # TOP CONTROL BAR
