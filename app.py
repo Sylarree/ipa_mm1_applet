@@ -5,13 +5,37 @@ import math
 import random
 
 st.set_page_config(layout="wide")
+
+# =========================
+# STYLE (CENTER + GREEN BUTTON)
+# =========================
+st.markdown("""
+<style>
+div.stButton > button {
+    background-color: #2ecc71;
+    color: white;
+    font-weight: 600;
+    border-radius: 8px;
+    height: 3em;
+}
+div.stButton > button:hover {
+    background-color: #27ae60;
+}
+
+/* Center everything nicely */
+.block-container {
+    text-align: center;
+}
+</style>
+""", unsafe_allow_html=True)
+
 st.title("IPA Analysis (M/M/1) — Textbook Formulation")
 st.caption("Author: Ana Theodora Balaci")
 
 # =========================
-# TOP CONTROL BAR
+# TOP CONTROL BAR (CENTERED)
 # =========================
-left_pad, col1, col2, col3, col4, col5, right_pad = st.columns([0.5, 1, 1, 1, 1, 0.8, 0.5])
+_, col1, col2, col3, col4, _ = st.columns([1,1,1,1,1,1])
 
 with col1:
     lam = st.number_input("λ", value=1.0, min_value=0.01)
@@ -25,7 +49,9 @@ with col3:
 with col4:
     seed = st.number_input("Seed", value=1)
 
-with col5:
+# CENTERED RUN BUTTON
+_, col_btn, _ = st.columns([2,1,2])
+with col_btn:
     run = st.button("Run Simulation", use_container_width=True)
 
 # =========================
@@ -46,21 +72,17 @@ def simulate_mm1_ipa(lam, mu, N, seed):
 
     W_vals = []
 
-    # IPA accumulators
     IPA_mu_vals = []
     IPA_lam_vals = []
 
-    # propagation terms (THIS is the key IPA structure)
     prop_mu = 0
     prop_lam = 0
 
     for i in range(N):
 
-        # arrival
         inter_arrival = exp_rv(lam)
         t += inter_arrival
 
-        # service
         service = exp_rv(mu)
 
         start_service = max(t, prev_departure)
@@ -69,34 +91,25 @@ def simulate_mm1_ipa(lam, mu, N, seed):
         W = departure - t
         W_vals.append(W)
 
-        # =========================
-        # IPA (TEXTBOOK STYLE)
-        # =========================
-
-        # generation term
+        # IPA (textbook form)
         gen_mu = -service / mu
         gen_lam = inter_arrival / lam
 
-        # reset if new busy period
         if t > prev_departure:
             prop_mu = 0
             prop_lam = 0
 
-        # total perturbation = generation + propagation
         total_mu = gen_mu + prop_mu
         total_lam = gen_lam + prop_lam
 
-        # update propagation
         prop_mu = total_mu
         prop_lam = total_lam
 
-        # store running averages
         IPA_mu_vals.append(total_mu)
         IPA_lam_vals.append(total_lam)
 
         prev_departure = departure
 
-    # cumulative averages
     W_avg = np.cumsum(W_vals) / np.arange(1, N + 1)
     dW_dmu = np.cumsum(IPA_mu_vals) / np.arange(1, N + 1)
     dW_dlam = np.cumsum(IPA_lam_vals) / np.arange(1, N + 1)
@@ -105,7 +118,7 @@ def simulate_mm1_ipa(lam, mu, N, seed):
 
 
 # =========================
-# RUN
+# RUN (AUTO LOAD + BUTTON)
 # =========================
 if run or "ran_once" not in st.session_state:
     st.session_state["ran_once"] = True
@@ -121,9 +134,9 @@ if run or "ran_once" not in st.session_state:
         dW_mu_th = -1 / (mu - lam)**2
 
         # =========================
-        # METRICS (TOP ROW)
+        # CENTERED METRICS
         # =========================
-        m1, m2, m3 = st.columns(3)
+        _, m1, m2, m3, _ = st.columns([1,1,1,1,1])
 
         m1.metric("W", f"{W[-1]:.4f}", f"{W_th:.4f}")
         m2.metric("dW/dλ", f"{dW_lam[-1]:.4f}", f"{dW_lam_th:.4f}")
@@ -132,28 +145,28 @@ if run or "ran_once" not in st.session_state:
         st.markdown("<br>", unsafe_allow_html=True)
 
         # =========================
-        # COMPACT PLOTS (NO SCROLL)
+        # CENTERED PLOTS
         # =========================
-        colA, colB, colC = st.columns(3)
+        _, colA, colB, colC, _ = st.columns([0.5,1,1,1,0.5])
 
-        # ---- W ----
-        fig1 = plt.figure(figsize=(4, 3))
+        # W
+        fig1 = plt.figure(figsize=(4,3))
         plt.plot(W, linewidth=1)
         plt.axhline(W_th, linestyle="--")
         plt.title("W")
         plt.tight_layout()
         colA.pyplot(fig1)
 
-        # ---- dW/dλ ----
-        fig2 = plt.figure(figsize=(4, 3))
+        # dW/dλ
+        fig2 = plt.figure(figsize=(4,3))
         plt.plot(dW_lam, linewidth=1)
         plt.axhline(dW_lam_th, linestyle="--")
         plt.title("dW/dλ")
         plt.tight_layout()
         colB.pyplot(fig2)
 
-        # ---- dW/dμ ----
-        fig3 = plt.figure(figsize=(4, 3))
+        # dW/dμ
+        fig3 = plt.figure(figsize=(4,3))
         plt.plot(dW_mu, linewidth=1)
         plt.axhline(dW_mu_th, linestyle="--")
         plt.title("dW/dμ")
@@ -161,7 +174,7 @@ if run or "ran_once" not in st.session_state:
         colC.pyplot(fig3)
 
         # =========================
-        # VERY SHORT INTERPRETATION
+        # FOOTER
         # =========================
         st.caption(
             "IPA implemented using generation + propagation terms with reset at idle periods (textbook form). "
