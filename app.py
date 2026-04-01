@@ -66,6 +66,7 @@ with col3:
     N = st.number_input("N", value=50000, min_value=1000)
 
 with col4:
+    st.markdown("<div style='height:28px'></div>", unsafe_allow_html=True)
     use_fixed_seed = st.checkbox("Fixed seed", value=True)
 
 with col5:
