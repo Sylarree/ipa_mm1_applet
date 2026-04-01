@@ -31,7 +31,30 @@ st.info("Change parameters and click 'Run Simulation' to update results.")
 # =========================
 # TOP CONTROL BAR
 # =========================
-left_pad, col1, col2, col3, col4, col5, right_pad = st.columns([0.5, 1, 1, 1, 1, 0.8, 0.5])
+# left_pad, col1, col2, col3, col4, col5, right_pad = st.columns([0.5, 1, 1, 1, 1, 0.8, 0.5])
+
+# with col1:
+#     lam = st.number_input("λ", value=1.0, min_value=0.01)
+
+# with col2:
+#     mu = st.number_input("μ", value=1.2, min_value=0.01)
+
+# with col3:
+#     N = st.number_input("N", value=50000, min_value=1000)
+
+# with col4:
+#     use_fixed_seed = st.checkbox("Fixed seed", value=True)
+
+#     if use_fixed_seed:
+#         seed = st.number_input("Seed", value=1)
+#     else:
+#         seed = random.randint(0, 1_000_000)
+
+# with col5:
+#     run = st.button("Run Simulation", use_container_width=True)
+
+
+left_pad, col1, col2, col3, col4, col5, col6, right_pad = st.columns([0.5, 1, 1, 1, 1, 1, 1, 0.5])
 
 with col1:
     lam = st.number_input("λ", value=1.0, min_value=0.01)
@@ -45,12 +68,14 @@ with col3:
 with col4:
     use_fixed_seed = st.checkbox("Fixed seed", value=True)
 
+with col5:
     if use_fixed_seed:
         seed = st.number_input("Seed", value=1)
     else:
         seed = random.randint(0, 1_000_000)
+        st.markdown("<div style='height:38px'></div>", unsafe_allow_html=True)
 
-with col5:
+with col6:
     run = st.button("Run Simulation", use_container_width=True)
 
 # =========================
