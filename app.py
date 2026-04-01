@@ -9,21 +9,9 @@ st.title("IPA Analysis (M/M/1) — Textbook Formulation")
 st.caption("Author: Ana Theodora Balaci")
 
 # =========================
-# Sidebar Inputs
-# =========================
-# st.sidebar.header("Parameters")
-
-# lam = st.sidebar.number_input("Lambda (λ)", value=1.0, min_value=0.01)
-# mu = st.sidebar.number_input("Mu (μ)", value=1.2, min_value=0.01)
-# N = st.sidebar.number_input("Customers (N)", value=50000, min_value=1000)
-# seed = st.sidebar.number_input("Seed", value=1)
-
-# run = st.sidebar.button("Run Simulation")
-
-# =========================
 # TOP CONTROL BAR
 # =========================
-col1, col2, col3, col4, col5 = st.columns(5)
+left_pad, col1, col2, col3, col4, col5, right_pad = st.columns([0.5, 1, 1, 1, 1, 0.8, 0.5])
 
 with col1:
     lam = st.number_input("λ", value=1.0, min_value=0.01)
@@ -38,7 +26,7 @@ with col4:
     seed = st.number_input("Seed", value=1)
 
 with col5:
-    run = st.button("Run")
+    run = st.button("Run Simulation", use_container_width=True)
 
 # =========================
 # Helpers
@@ -119,7 +107,8 @@ def simulate_mm1_ipa(lam, mu, N, seed):
 # =========================
 # RUN
 # =========================
-if run:
+if run or "ran_once" not in st.session_state:
+    st.session_state["ran_once"] = True
 
     if lam >= mu:
         st.error("System unstable (λ ≥ μ)")
@@ -134,13 +123,13 @@ if run:
         # =========================
         # METRICS (TOP ROW)
         # =========================
-        col1, col2, col3 = st.columns(3)
+        m1, m2, m3 = st.columns(3)
 
-        col1.metric("W", f"{W[-1]:.4f}", f"{W_th:.4f}")
-        col2.metric("dW/dλ", f"{dW_lam[-1]:.4f}", f"{dW_lam_th:.4f}")
-        col3.metric("dW/dμ", f"{dW_mu[-1]:.4f}", f"{dW_mu_th:.4f}")
+        m1.metric("W", f"{W[-1]:.4f}", f"{W_th:.4f}")
+        m2.metric("dW/dλ", f"{dW_lam[-1]:.4f}", f"{dW_lam_th:.4f}")
+        m3.metric("dW/dμ", f"{dW_mu[-1]:.4f}", f"{dW_mu_th:.4f}")
 
-        st.markdown("---")
+        st.markdown("<br>", unsafe_allow_html=True)
 
         # =========================
         # COMPACT PLOTS (NO SCROLL)
@@ -148,7 +137,7 @@ if run:
         colA, colB, colC = st.columns(3)
 
         # ---- W ----
-        fig1 = plt.figure(figsize=(4,3))
+        fig1 = plt.figure(figsize=(4, 3))
         plt.plot(W, linewidth=1)
         plt.axhline(W_th, linestyle="--")
         plt.title("W")
@@ -156,7 +145,7 @@ if run:
         colA.pyplot(fig1)
 
         # ---- dW/dλ ----
-        fig2 = plt.figure(figsize=(4,3))
+        fig2 = plt.figure(figsize=(4, 3))
         plt.plot(dW_lam, linewidth=1)
         plt.axhline(dW_lam_th, linestyle="--")
         plt.title("dW/dλ")
@@ -164,7 +153,7 @@ if run:
         colB.pyplot(fig2)
 
         # ---- dW/dμ ----
-        fig3 = plt.figure(figsize=(4,3))
+        fig3 = plt.figure(figsize=(4, 3))
         plt.plot(dW_mu, linewidth=1)
         plt.axhline(dW_mu_th, linestyle="--")
         plt.title("dW/dμ")
