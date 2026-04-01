@@ -54,7 +54,7 @@ st.info("Change parameters and click 'Run Simulation' to update results.")
 #     run = st.button("Run Simulation", use_container_width=True)
 
 
-left_pad, col1, col2, col3, col4, col5, col6, right_pad = st.columns([0.5, 1, 1, 1, 1.3, 1, 1, 0.5])
+left_pad, col1, col2, col3, col4, col5, col6, right_pad = st.columns([0.5, 1, 1, 1, 0.7, 1, 1, 0.5])
 
 with col1:
     lam = st.number_input("λ", value=1.0, min_value=0.01)
@@ -77,7 +77,7 @@ with col5:
         st.markdown("<div style='height:38px'></div>", unsafe_allow_html=True)
 
 with col6:
-    st.markdown("<div style='height:30px'></div>", unsafe_allow_html=True)
+    st.markdown("<div style='height:25px'></div>", unsafe_allow_html=True)
     run = st.button("Run Simulation", use_container_width=True)
 
 # =========================
