@@ -191,7 +191,7 @@ if run or "ran_once" not in st.session_state:
             "<div style='text-align:center; font-size:12px; color:gray;'>"
             "Based on Infinitesimal Perturbation Analysis formulation in "
             "C. G. Cassandras & S. Lafortune, "
-            "<i>Introduction to Discrete Event Systems</i>, Eq. (11.63)."
+            "<i>Introduction to Discrete Event Systems</i>, Springer, 3rd ed., Eq. (11.63)."
             "</div>",
             unsafe_allow_html=True
         )
